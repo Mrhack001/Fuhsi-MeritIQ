@@ -1,0 +1,2773 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Check Eligibility — FUHSI MeritIQ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Lora:ital@0;1&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ══════════════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════════════ */
+        :root {
+            --g900: #0a2e1a;
+            --g800: #0f3d22;
+            --g700: #155230;
+            --g600: #1a6b3e;
+            --g500: #1f8a4f;
+            --g400: #28b060;
+            --g300: #4ecb7d;
+            --g200: #9de8be;
+            --g100: #d4f0e0;
+            --g50: #edfbf3;
+            --gold500: #c9a227;
+            --gold400: #e0b84a;
+            --gold300: #f0d080;
+            --gold100: #fdf4d8;
+            --red500: #e05252;
+            --red100: #fff0f0;
+            --amber500: #e09a27;
+            --amber100: #fff8ed;
+            --blue500: #3a7bd5;
+            --blue100: #edf4ff;
+            --white: #fff;
+            --gray50: #f8faf9;
+            --gray100: #f0f4f2;
+            --gray200: #dce6e1;
+            --gray400: #8fa99a;
+            --gray600: #4a6657;
+            --gray800: #1e2e28;
+            --shadow-sm: 0 2px 8px rgba(10, 46, 26, .08);
+            --shadow-md: 0 8px 32px rgba(10, 46, 26, .12);
+            --shadow-lg: 0 20px 60px rgba(10, 46, 26, .16);
+            --r-sm: 10px;
+            --r-md: 16px;
+            --r-lg: 24px;
+            --r-xl: 32px;
+            --trans: all .3s cubic-bezier(.4, 0, .2, 1);
+            --navh: 68px;
+        }
+
+        /* ══════════════════════════════════════════
+   RESET
+══════════════════════════════════════════ */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px
+        }
+
+        body {
+            font-family: 'Sora', sans-serif;
+            background: var(--gray50);
+            color: var(--gray800);
+            line-height: 1.65;
+            overflow-x: hidden
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit
+        }
+
+        ul {
+            list-style: none
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: none
+        }
+
+        input,
+        select {
+            font-family: inherit
+        }
+
+        img {
+            max-width: 100%
+        }
+
+        .container {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 24px
+        }
+
+        .hidden {
+            display: none !important
+        }
+
+        /* ══════════════════════════════════════════
+   NAVBAR
+══════════════════════════════════════════ */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 300;
+            background: rgba(10, 46, 26, .97);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(78, 203, 125, .12);
+            padding: 14px 0;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .nav-logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 9px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, var(--gold400), var(--gold300));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.1rem;
+            color: var(--g900);
+            box-shadow: 0 4px 14px rgba(201, 162, 39, .35);
+        }
+
+        .nav-brand-text .name {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--white)
+        }
+
+        .nav-brand-text .sub {
+            font-size: .62rem;
+            color: var(--gold300);
+            font-weight: 600;
+            letter-spacing: .06em;
+            text-transform: uppercase
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 14px
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: .83rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, .65);
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, .12);
+            transition: var(--trans);
+        }
+
+        .nav-back:hover {
+            color: var(--white);
+            background: rgba(255, 255, 255, .07);
+            border-color: rgba(255, 255, 255, .2)
+        }
+
+        .nav-badge {
+            font-size: .7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            padding: 6px 14px;
+            border-radius: 50px;
+            background: rgba(78, 203, 125, .12);
+            border: 1px solid rgba(78, 203, 125, .25);
+            color: var(--g300);
+            white-space: nowrap;
+        }
+
+        /* ══════════════════════════════════════════
+   PAGE HERO
+══════════════════════════════════════════ */
+        #page-hero {
+            padding: calc(var(--navh) + 42px) 0 56px;
+            background: linear-gradient(160deg, var(--g900) 0%, var(--g800) 50%, var(--g700) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-geo {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden
+        }
+
+        .geo-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(78, 203, 125, .1) 0%, transparent 70%);
+            animation: geoFloat 8s ease-in-out infinite;
+        }
+
+        .geo-circle:nth-child(1) {
+            width: 600px;
+            height: 600px;
+            top: -200px;
+            right: -100px
+        }
+
+        .geo-circle:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            bottom: -80px;
+            left: -60px;
+            animation-delay: -4s
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(78, 203, 125, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(78, 203, 125, .04) 1px, transparent 1px);
+            background-size: 50px 50px
+        }
+
+        @keyframes geoFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0)
+            }
+
+            50% {
+                transform: translate(15px, -20px)
+            }
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto
+        }
+
+        .hero-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(78, 203, 125, .1);
+            border: 1px solid rgba(78, 203, 125, .22);
+            color: var(--g300);
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: 7px 16px;
+            border-radius: 50px;
+            margin-bottom: 22px;
+        }
+
+        .hero-chip .pulse {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--g300);
+            animation: pulse 2s infinite
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .4;
+                transform: scale(.7)
+            }
+        }
+
+        .hero-title {
+            font-size: clamp(1.8rem, 4.4vw, 2.9rem);
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1.18;
+            margin-bottom: 18px
+        }
+
+        .hero-title .hl {
+            background: linear-gradient(135deg, var(--gold400), var(--gold300));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text
+        }
+
+        .hero-sub {
+            font-size: .96rem;
+            color: rgba(255, 255, 255, .68);
+            line-height: 1.75;
+            max-width: 560px;
+            margin: 0 auto 30px
+        }
+
+        .hero-pills {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 9px
+        }
+
+        .pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .75rem;
+            font-weight: 600;
+            padding: 7px 14px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, .07);
+            border: 1px solid rgba(255, 255, 255, .12);
+            color: rgba(255, 255, 255, .75)
+        }
+
+        /* ══════════════════════════════════════════
+   STEPPER (sticky beneath navbar)
+══════════════════════════════════════════ */
+        .stepper-wrap {
+            position: sticky;
+            top: var(--navh);
+            z-index: 150;
+            background: var(--g900);
+            border-bottom: 1px solid rgba(78, 203, 125, .12);
+        }
+
+        .stepper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            padding: 16px 0;
+            max-width: 560px;
+            margin: 0 auto
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: .78rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, .35);
+            transition: var(--trans);
+            flex: 1;
+            justify-content: center
+        }
+
+        .step.active {
+            color: var(--g300)
+        }
+
+        .step.done {
+            color: rgba(78, 203, 125, .6)
+        }
+
+        .step-num {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .72rem;
+            font-weight: 800;
+            background: rgba(255, 255, 255, .07);
+            border: 1.5px solid rgba(255, 255, 255, .15);
+            color: rgba(255, 255, 255, .35);
+            transition: var(--trans);
+        }
+
+        .step.active .step-num {
+            background: var(--g600);
+            border-color: var(--g400);
+            color: var(--white)
+        }
+
+        .step.done .step-num {
+            background: rgba(78, 203, 125, .15);
+            border-color: var(--g400);
+            color: var(--g300)
+        }
+
+        .step-connector {
+            flex: 0 0 36px;
+            height: 1.5px;
+            background: rgba(255, 255, 255, .1)
+        }
+
+        .step.done+.step-connector {
+            background: rgba(78, 203, 125, .3)
+        }
+
+        /* ══════════════════════════════════════════
+   MAIN LAYOUT
+══════════════════════════════════════════ */
+        #main-content {
+            padding: 44px 0 80px;
+            position: relative;
+            z-index: 1
+        }
+
+        /* ══════════════════════════════════════════
+   FORM SECTION
+══════════════════════════════════════════ */
+        .form-card {
+            background: var(--white);
+            border: 1.5px solid var(--gray200);
+            border-radius: var(--r-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-md)
+        }
+
+        .form-card-header {
+            padding: 26px 32px;
+            background: linear-gradient(135deg, var(--g50), var(--white));
+            border-bottom: 1px solid var(--gray200);
+            display: flex;
+            align-items: center;
+            gap: 16px
+        }
+
+        .form-header-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--g100), var(--g200));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0
+        }
+
+        .form-card-header h2 {
+            font-size: 1.18rem;
+            font-weight: 800;
+            color: var(--g900)
+        }
+
+        .form-card-header p {
+            font-size: .82rem;
+            color: var(--gray600);
+            margin-top: 2px
+        }
+
+        .form-body {
+            padding: 32px
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .form-group.full {
+            grid-column: 1/-1
+        }
+
+        .form-label {
+            font-size: .82rem;
+            font-weight: 700;
+            color: var(--g800);
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        .form-label .req {
+            color: var(--red500)
+        }
+
+        .form-label .tooltip {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--gray200);
+            color: var(--gray600);
+            font-size: .65rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: help
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid var(--gray200);
+            border-radius: var(--r-sm);
+            font-size: .92rem;
+            font-weight: 500;
+            color: var(--g800);
+            background: var(--gray50);
+            outline: none;
+            transition: var(--trans);
+            appearance: none;
+            -webkit-appearance: none;
+            min-height: 48px;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            border-color: var(--g400);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(78, 203, 125, .12)
+        }
+
+        .select-wrap {
+            position: relative
+        }
+
+        .select-wrap::after {
+            content: '▾';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: .85rem;
+            color: var(--gray400);
+            pointer-events: none
+        }
+
+        .form-hint {
+            font-size: .75rem;
+            color: var(--gray400);
+            margin-top: 3px
+        }
+
+        .form-error {
+            font-size: .75rem;
+            color: var(--red500);
+            margin-top: 3px;
+            display: none;
+            font-weight: 600
+        }
+
+        .form-group.has-error .form-error {
+            display: block
+        }
+
+        .form-group.has-error .form-input,
+        .form-group.has-error .form-select {
+            border-color: var(--red500);
+            box-shadow: 0 0 0 3px rgba(224, 82, 82, .1)
+        }
+
+        /* O'Level grid — exactly 5 mandatory core subjects */
+        .olevel-section {
+            margin-top: 6px
+        }
+
+        .olevel-label-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px
+        }
+
+        .olevel-label-row span.olt {
+            font-size: .82rem;
+            font-weight: 700;
+            color: var(--g800)
+        }
+
+        .olevel-note {
+            font-size: .75rem;
+            color: var(--gray400)
+        }
+
+        .olevel-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px
+        }
+
+        .olevel-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px
+        }
+
+        .olevel-item label {
+            font-size: .73rem;
+            font-weight: 600;
+            color: var(--gray600)
+        }
+
+        .olevel-item select {
+            padding: 11px 26px 11px 10px;
+            font-size: .8rem;
+            border: 1.5px solid var(--gray200);
+            border-radius: 8px;
+            background: var(--gray50);
+            outline: none;
+            transition: var(--trans);
+            color: var(--g800);
+            font-weight: 500;
+            appearance: none;
+            -webkit-appearance: none;
+            min-height: 46px;
+            width: 100%;
+        }
+
+        .olevel-item select:focus {
+            border-color: var(--g400);
+            background: var(--white);
+            box-shadow: 0 0 0 3px rgba(78, 203, 125, .1)
+        }
+
+        /* JAMB Score Slider */
+        .score-input-wrap {
+            position: relative
+        }
+
+        .score-display {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: .85rem;
+            font-weight: 800;
+            color: var(--g600);
+            background: var(--g50);
+            border: 1px solid var(--g200);
+            padding: 3px 10px;
+            border-radius: 6px;
+            pointer-events: none
+        }
+
+        .score-range {
+            width: 100%;
+            margin-top: 8px;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: var(--gray200);
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer
+        }
+
+        .score-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--g500), var(--g400));
+            box-shadow: 0 2px 8px rgba(26, 107, 62, .3);
+            cursor: pointer;
+            border: 2px solid var(--white)
+        }
+
+        .score-range::-moz-range-thumb {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--g500), var(--g400));
+            box-shadow: 0 2px 8px rgba(26, 107, 62, .3);
+            cursor: pointer;
+            border: 2px solid var(--white)
+        }
+
+        .score-ticks {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4px
+        }
+
+        .score-ticks span {
+            font-size: .68rem;
+            color: var(--gray400)
+        }
+
+        /* CTA Button */
+        .form-footer {
+            padding: 0 32px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap
+        }
+
+        .btn-analyze {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--g700), var(--g500));
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 16px 34px;
+            border-radius: 50px;
+            box-shadow: 0 8px 28px rgba(26, 107, 62, .35);
+            transition: var(--trans);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            justify-content: center;
+        }
+
+        @media (min-width: 560px) {
+            .btn-analyze {
+                width: auto
+            }
+        }
+
+        .btn-analyze:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 36px rgba(26, 107, 62, .45);
+            background: linear-gradient(135deg, var(--g600), var(--g400))
+        }
+
+        .btn-analyze .arrow {
+            transition: transform .25s ease
+        }
+
+        .btn-analyze:hover .arrow {
+            transform: translateX(4px)
+        }
+
+        .form-note {
+            font-size: .76rem;
+            color: var(--gray400);
+            display: flex;
+            align-items: center;
+            gap: 6px
+        }
+
+        /* ══════════════════════════════════════════
+   LOADING SECTION
+══════════════════════════════════════════ */
+        #loading-section {
+            background: var(--white);
+            border: 1.5px solid var(--gray200);
+            border-radius: var(--r-xl);
+            padding: 54px 28px;
+            text-align: center;
+            box-shadow: var(--shadow-md)
+        }
+
+        .loading-orb {
+            width: 78px;
+            height: 78px;
+            border-radius: 50%;
+            margin: 0 auto 28px;
+            position: relative;
+            background: conic-gradient(var(--g400) 0%, var(--g600) 30%, transparent 60%);
+            animation: spin 1.2s linear infinite
+        }
+
+        .loading-orb::before {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border-radius: 50%;
+            background: var(--white)
+        }
+
+        .loading-orb::after {
+            content: '📊';
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.45rem;
+            animation: spin 1.2s linear infinite reverse
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .loading-title {
+            font-size: 1.22rem;
+            font-weight: 800;
+            color: var(--g900);
+            margin-bottom: 8px
+        }
+
+        .loading-steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 360px;
+            margin: 22px auto 0
+        }
+
+        .l-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: var(--r-sm);
+            background: var(--gray50);
+            border: 1.5px solid var(--gray200);
+            font-size: .83rem;
+            font-weight: 600;
+            color: var(--gray600);
+            transition: var(--trans);
+            text-align: left
+        }
+
+        .l-step.active {
+            background: var(--g50);
+            border-color: var(--g200);
+            color: var(--g700)
+        }
+
+        .l-step.done {
+            background: linear-gradient(90deg, rgba(78, 203, 125, .06), transparent);
+            border-color: var(--g200);
+            color: var(--g600)
+        }
+
+        .l-step .l-icon {
+            font-size: 1.05rem;
+            flex-shrink: 0
+        }
+
+        .l-step .l-check {
+            margin-left: auto;
+            color: var(--g400);
+            font-size: .9rem;
+            opacity: 0;
+            transition: var(--trans)
+        }
+
+        .l-step.done .l-check {
+            opacity: 1
+        }
+
+        .loading-bar-wrap {
+            max-width: 380px;
+            margin: 26px auto 0
+        }
+
+        .loading-bar {
+            height: 6px;
+            background: var(--gray200);
+            border-radius: 3px;
+            overflow: hidden
+        }
+
+        .loading-fill {
+            height: 100%;
+            border-radius: 3px;
+            width: 0;
+            background: linear-gradient(90deg, var(--g600), var(--g300));
+            transition: width .5s ease
+        }
+
+        .loading-pct {
+            font-size: .8rem;
+            font-weight: 700;
+            color: var(--g600);
+            margin-top: 8px
+        }
+
+        /* ══════════════════════════════════════════
+   RESULTS SECTION
+══════════════════════════════════════════ */
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 26px
+        }
+
+        .results-title-group .rtitle {
+            font-size: 1.32rem;
+            font-weight: 800;
+            color: var(--g900)
+        }
+
+        .results-title-group .rsub {
+            font-size: .82rem;
+            color: var(--gray600);
+            margin-top: 3px
+        }
+
+        .results-actions-top {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .btn-icon {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 17px;
+            border-radius: 50px;
+            font-size: .81rem;
+            font-weight: 600;
+            border: 1.5px solid var(--gray200);
+            color: var(--gray600);
+            background: var(--white);
+            transition: var(--trans);
+            cursor: pointer
+        }
+
+        .btn-icon:hover {
+            border-color: var(--g300);
+            color: var(--g600);
+            background: var(--g50)
+        }
+
+        .btn-icon.primary {
+            background: var(--g800);
+            color: var(--white);
+            border-color: var(--g700)
+        }
+
+        .btn-icon.primary:hover {
+            background: var(--g700);
+            border-color: var(--g600)
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px
+        }
+
+        .r-card {
+            background: var(--white);
+            border: 1.5px solid var(--gray200);
+            border-radius: var(--r-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--trans);
+            position: relative;
+            overflow: hidden
+        }
+
+        .r-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px)
+        }
+
+        .r-card.full {
+            grid-column: 1/-1
+        }
+
+        .r-card.accent-green {
+            border-top: 3px solid var(--g400)
+        }
+
+        .r-card.accent-gold {
+            border-top: 3px solid var(--gold400)
+        }
+
+        .r-card.accent-blue {
+            border-top: 3px solid var(--blue500)
+        }
+
+        .r-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px
+        }
+
+        .r-card-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0
+        }
+
+        .r-card-icon.green {
+            background: var(--g50);
+            border: 1px solid var(--g200)
+        }
+
+        .r-card-icon.gold {
+            background: var(--gold100);
+            border: 1px solid var(--gold300)
+        }
+
+        .r-card-icon.blue {
+            background: var(--blue100);
+            border: 1px solid #c0d8f8
+        }
+
+        .r-card-title {
+            font-size: .86rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            color: var(--gray600)
+        }
+
+        .r-card-sub {
+            font-size: .74rem;
+            color: var(--gray400);
+            margin-top: 1px
+        }
+
+        /* Verdict Card */
+        .prob-big {
+            text-align: center;
+            padding: 6px 0 16px
+        }
+
+        .prob-ring-wrap {
+            position: relative;
+            width: 138px;
+            height: 138px;
+            margin: 0 auto 16px
+        }
+
+        .prob-ring-svg {
+            transform: rotate(-90deg)
+        }
+
+        .prob-ring-bg {
+            fill: none;
+            stroke: var(--gray200);
+            stroke-width: 10
+        }
+
+        .prob-ring-fill {
+            fill: none;
+            stroke-width: 10;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1.2s cubic-bezier(.4, 0, .2, 1)
+        }
+
+        .prob-center {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 8px
+        }
+
+        .prob-pct {
+            font-size: 1.7rem;
+            font-weight: 900;
+            line-height: 1
+        }
+
+        .prob-label {
+            font-size: .64rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+            margin-top: 4px;
+            color: var(--gray600);
+            text-align: center
+        }
+
+        .prob-diff {
+            font-size: .68rem;
+            font-weight: 700;
+            margin-top: 3px
+        }
+
+        .prob-verdict {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 20px;
+            border-radius: 50px;
+            font-size: .86rem;
+            font-weight: 700;
+            margin: 0 auto
+        }
+
+        .verdict-strong,
+        .verdict-likely {
+            background: var(--g50);
+            color: var(--g700);
+            border: 1.5px solid var(--g200)
+        }
+
+        .verdict-borderline {
+            background: var(--amber100);
+            color: #7a4e00;
+            border: 1.5px solid #fbd090
+        }
+
+        .verdict-below {
+            background: var(--red100);
+            color: #901f1f;
+            border: 1.5px solid #ffc0c0
+        }
+
+        .prob-message {
+            font-size: .82rem;
+            color: var(--gray600);
+            text-align: center;
+            margin-top: 14px;
+            line-height: 1.65;
+            padding: 0 4px
+        }
+
+        .prob-meta {
+            font-size: .73rem;
+            color: var(--gray400);
+            text-align: center;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--gray200)
+        }
+
+        /* Method comparison rows */
+        .method-legend {
+            font-size: .76rem;
+            color: var(--gray600);
+            margin-bottom: 14px;
+            padding: 10px 12px;
+            background: var(--gray50);
+            border: 1px solid var(--gray200);
+            border-radius: 10px
+        }
+
+        .method-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .method-row {
+            border: 1.5px solid var(--gray200);
+            border-radius: var(--r-md);
+            padding: 13px 14px;
+            transition: var(--trans)
+        }
+
+        .method-row.met {
+            border-color: var(--g200);
+            background: var(--g50)
+        }
+
+        .method-row.unmet {
+            border-color: var(--gray200);
+            background: var(--gray50)
+        }
+
+        .method-row-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .method-name {
+            font-size: .85rem;
+            font-weight: 800;
+            color: var(--g900)
+        }
+
+        .method-tag {
+            font-size: .68rem;
+            color: var(--gray400);
+            margin-top: 2px;
+            font-weight: 600
+        }
+
+        .method-score-wrap {
+            text-align: right;
+            flex-shrink: 0
+        }
+
+        .method-score {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--g800)
+        }
+
+        .method-chip {
+            display: inline-block;
+            margin-top: 2px;
+            font-size: .66rem;
+            font-weight: 800;
+            padding: 3px 9px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: .04em
+        }
+
+        .chip-met {
+            background: var(--g100);
+            color: var(--g700)
+        }
+
+        .chip-unmet {
+            background: var(--red100);
+            color: #901f1f
+        }
+
+        .method-detail {
+            font-size: .73rem;
+            color: var(--gray600);
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed var(--gray200)
+        }
+
+        /* Course Status Card */
+        .course-status-main {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 14px
+        }
+
+        .cs-course-icon {
+            font-size: 1.9rem
+        }
+
+        .cs-course-name {
+            font-size: .98rem;
+            font-weight: 800;
+            color: var(--g900)
+        }
+
+        .cs-course-faculty {
+            font-size: .76rem;
+            color: var(--gray400);
+            margin-top: 2px
+        }
+
+        .cs-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 8px;
+            font-size: .74rem;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 50px
+        }
+
+        .cs-badge.eligible {
+            background: var(--g50);
+            color: var(--g700);
+            border: 1px solid var(--g200)
+        }
+
+        .cs-badge.competitive {
+            background: var(--amber100);
+            color: #7a4e00;
+            border: 1px solid #fbd090
+        }
+
+        .cs-badge.low {
+            background: var(--red100);
+            color: #901f1f;
+            border: 1px solid #ffc0c0
+        }
+
+        .cutoff-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-top: 1px solid var(--gray200);
+            gap: 10px
+        }
+
+        .cutoff-row span {
+            font-size: .81rem;
+            color: var(--gray600);
+            display: flex;
+            align-items: center;
+            gap: 5px
+        }
+
+        .cutoff-row strong {
+            font-size: .89rem;
+            font-weight: 800;
+            color: var(--g800);
+            text-align: right
+        }
+
+        /* Profile recap card */
+        .recap-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 9px 0;
+            border-top: 1px solid var(--gray200)
+        }
+
+        .recap-row:first-child {
+            border-top: none;
+            padding-top: 0
+        }
+
+        .recap-row span {
+            font-size: .81rem;
+            color: var(--gray600)
+        }
+
+        .recap-row strong {
+            font-size: .87rem;
+            font-weight: 800;
+            color: var(--g800);
+            text-align: right
+        }
+
+        .recap-grades {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: flex-end
+        }
+
+        .recap-grade-chip {
+            font-size: .72rem;
+            font-weight: 700;
+            background: var(--g50);
+            color: var(--g700);
+            border: 1px solid var(--g200);
+            padding: 3px 9px;
+            border-radius: 50px
+        }
+
+        /* Alternatives Card */
+        .alt-intro {
+            font-size: .82rem;
+            color: var(--gray600);
+            margin-bottom: 16px;
+            line-height: 1.6
+        }
+
+        .alt-card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .alt-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px;
+            border-radius: var(--r-md);
+            border: 1.5px solid var(--gray200);
+            transition: var(--trans)
+        }
+
+        .alt-item.alt-recommended {
+            border-color: var(--g200);
+            background: var(--g50)
+        }
+
+        .alt-item.alt-borderline {
+            border-color: #fbd090;
+            background: var(--amber100)
+        }
+
+        .alt-item-icon {
+            font-size: 1.25rem;
+            flex-shrink: 0
+        }
+
+        .alt-item-main {
+            flex: 1;
+            min-width: 0
+        }
+
+        .alt-item-name {
+            font-size: .89rem;
+            font-weight: 700;
+            color: var(--g900)
+        }
+
+        .alt-item-reason {
+            font-size: .73rem;
+            color: var(--gray400);
+            margin-top: 2px
+        }
+
+        .alt-item-prob {
+            font-size: .8rem;
+            font-weight: 800;
+            flex-shrink: 0;
+            padding: 5px 11px;
+            border-radius: 50px;
+            text-align: center;
+            white-space: nowrap
+        }
+
+        .alt-prob-high {
+            background: var(--g100);
+            color: var(--g700)
+        }
+
+        .alt-prob-mid {
+            background: var(--amber100);
+            color: #7a4e00;
+            border: 1px solid #fbd090
+        }
+
+        .alt-prob-low {
+            background: var(--red100);
+            color: #901f1f
+        }
+
+        /* Methodology / Formula cards */
+        .formula-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 18px
+        }
+
+        .formula-card {
+            border: 1.5px solid var(--gray200);
+            border-radius: var(--r-md);
+            padding: 16px;
+            background: var(--gray50)
+        }
+
+        .formula-card.recent {
+            border-color: var(--g300);
+            background: var(--g50)
+        }
+
+        .formula-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 8px
+        }
+
+        .formula-title {
+            font-size: .87rem;
+            font-weight: 800;
+            color: var(--g900)
+        }
+
+        .formula-badge {
+            font-size: .62rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            padding: 3px 8px;
+            border-radius: 50px;
+            flex-shrink: 0;
+            white-space: nowrap
+        }
+
+        .formula-badge.recent {
+            background: var(--g600);
+            color: var(--white)
+        }
+
+        .formula-badge.unconfirmed {
+            background: var(--gray200);
+            color: var(--gray600)
+        }
+
+        .formula-weight {
+            font-size: .72rem;
+            font-weight: 700;
+            color: var(--g700);
+            margin-bottom: 8px
+        }
+
+        .formula-body {
+            font-size: .76rem;
+            color: var(--gray600);
+            line-height: 1.6
+        }
+
+        .formula-note {
+            font-size: .79rem;
+            color: var(--gray600);
+            line-height: 1.65;
+            padding: 14px 16px;
+            background: var(--blue100);
+            border: 1px solid #c0d8f8;
+            border-radius: var(--r-md)
+        }
+
+        /* Merit table accordion */
+        .merit-accordion {
+            margin-top: 18px;
+            border: 1.5px solid var(--gray200);
+            border-radius: var(--r-md);
+            overflow: hidden
+        }
+
+        .merit-accordion summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 14px 18px;
+            font-size: .85rem;
+            font-weight: 700;
+            color: var(--g800);
+            background: var(--gray50);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .merit-accordion summary::-webkit-details-marker {
+            display: none
+        }
+
+        .merit-accordion summary .acc-arrow {
+            transition: transform .25s ease;
+            color: var(--gray400);
+            font-size: .8rem
+        }
+
+        .merit-accordion[open] summary .acc-arrow {
+            transform: rotate(180deg)
+        }
+
+        .merit-table-body {
+            padding: 6px 18px 16px
+        }
+
+        .merit-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px 0;
+            border-top: 1px solid var(--gray200)
+        }
+
+        .merit-row:first-child {
+            border-top: none
+        }
+
+        .merit-row.self {
+            background: var(--g50);
+            margin: 0 -10px;
+            padding: 10px;
+            border-radius: 8px;
+            border-top: none
+        }
+
+        .merit-row-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0
+        }
+
+        .merit-row-icon {
+            font-size: 1.05rem;
+            flex-shrink: 0
+        }
+
+        .merit-row-name {
+            font-size: .81rem;
+            font-weight: 700;
+            color: var(--g900)
+        }
+
+        .merit-row-tag {
+            font-size: .68rem;
+            color: var(--g600);
+            font-weight: 700;
+            background: var(--g100);
+            padding: 1px 7px;
+            border-radius: 50px;
+            margin-left: 6px
+        }
+
+        .merit-row-score {
+            font-size: .87rem;
+            font-weight: 800;
+            color: var(--g800);
+            flex-shrink: 0
+        }
+
+        /* Disclaimer */
+        .disclaimer-bar {
+            margin-top: 22px;
+            padding: 16px 18px;
+            background: var(--gray50);
+            border: 1px solid var(--gray200);
+            border-radius: var(--r-md);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: .79rem;
+            color: var(--gray600);
+            line-height: 1.65
+        }
+
+        .disclaimer-bar .di-icon {
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 1px
+        }
+
+        /* Bottom Actions */
+        .bottom-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 30px
+        }
+
+        .btn-lg {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: .9rem;
+            font-weight: 700;
+            transition: var(--trans);
+            cursor: pointer
+        }
+
+        .btn-lg.green {
+            background: linear-gradient(135deg, var(--g700), var(--g500));
+            color: var(--white);
+            border: none;
+            box-shadow: 0 6px 22px rgba(26, 107, 62, .3)
+        }
+
+        .btn-lg.green:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(26, 107, 62, .4)
+        }
+
+        .btn-lg.outline {
+            background: var(--white);
+            color: var(--g700);
+            border: 1.5px solid var(--g200)
+        }
+
+        .btn-lg.outline:hover {
+            background: var(--g50);
+            border-color: var(--g300)
+        }
+
+        .btn-lg.ghost {
+            background: transparent;
+            color: var(--gray600);
+            border: 1.5px solid var(--gray200)
+        }
+
+        .btn-lg.ghost:hover {
+            background: var(--gray50);
+            border-color: var(--gray400)
+        }
+
+        /* Entrance animation */
+        .fade-in {
+            animation: fadeUp .5s ease both
+        }
+
+        .fade-in-1 {
+            animation-delay: .05s
+        }
+
+        .fade-in-2 {
+            animation-delay: .12s
+        }
+
+        .fade-in-3 {
+            animation-delay: .2s
+        }
+
+        .fade-in-4 {
+            animation-delay: .28s
+        }
+
+        .fade-in-5 {
+            animation-delay: .36s
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        /* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+        @media (max-width: 900px) {
+            .formula-grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr
+            }
+
+            .olevel-grid {
+                grid-template-columns: repeat(3, 1fr)
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr
+            }
+
+            .r-card.full {
+                grid-column: 1
+            }
+
+            .results-header {
+                flex-direction: column;
+                align-items: flex-start
+            }
+
+            .form-body {
+                padding: 22px
+            }
+
+            .form-footer {
+                padding: 0 22px 22px;
+                flex-direction: column-reverse;
+                align-items: stretch
+            }
+
+            .form-note {
+                justify-content: center;
+                text-align: center
+            }
+
+            .bottom-actions {
+                flex-direction: column
+            }
+
+            .btn-lg {
+                width: 100%;
+                justify-content: center
+            }
+
+            .nav-back span.txt {
+                display: none
+            }
+
+            .results-actions-top {
+                width: 100%;
+            }
+
+            .results-actions-top .btn-icon {
+                flex: 1;
+                justify-content: center
+            }
+        }
+
+        @media (max-width: 560px) {
+            .container {
+                padding: 0 16px
+            }
+
+            #page-hero {
+                padding: calc(var(--navh) + 26px) 0 38px
+            }
+
+            .hero-pills {
+                gap: 6px
+            }
+
+            .hero-chip {
+                font-size: .68rem
+            }
+
+            .olevel-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .step-label {
+                display: none
+            }
+
+            .stepper {
+                max-width: 260px
+            }
+
+            .nav-badge {
+                font-size: .62rem;
+                padding: 5px 10px
+            }
+
+            .form-card-header {
+                padding: 20px
+            }
+
+            .form-card-header h2 {
+                font-size: 1.05rem
+            }
+
+            .r-card {
+                padding: 18px
+            }
+
+            .recap-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px
+            }
+
+            .recap-row strong,
+            .recap-grades {
+                text-align: left;
+                justify-content: flex-start
+            }
+
+            .method-score-wrap {
+                text-align: right
+            }
+        }
+
+        /* Print */
+        @media print {
+
+            #navbar,
+            .stepper-wrap,
+            #form-section,
+            .results-actions-top,
+            .bottom-actions,
+            #page-hero {
+                display: none !important
+            }
+
+            #main-content {
+                padding-top: 10px
+            }
+
+            body {
+                background: var(--white)
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav id="navbar">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="eligibility.html" class="nav-brand">
+                    <div class="nav-logo-icon">
+                        <img src="fuhsilogo.jpg" alt="FUHSI Logo" onerror="this.nextElementSibling.style.display='flex';"
+                            style="width: 40px; border-radius: 2px; height: 40px; object-fit: contain;">
+                    </div>
+                    <div class="nav-brand-text">
+                        <div class="name">FUHSI MeritIQ</div>
+                        <div class="sub">Admission Intelligence</div>
+                    </div>
+                </a>
+                <div class="nav-right">
+                    <a href="index.html" class="nav-back">← <span class="txt">Back to Home</span></a>
+                    <div class="nav-badge">📊 Merit Engine</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <section id="page-hero">
+        <div class="hero-geo">
+            <div class="geo-circle"></div>
+            <div class="geo-circle"></div>
+            <div class="hero-grid"></div>
+        </div>
+        <div class="container">
+            <div class="hero-inner">
+                <div class="hero-chip"><span class="pulse"></span>FUHSI Eligibility Engine</div>
+                <h1 class="hero-title">Check Your <span class="hl">FUHSI Admission</span> Eligibility Instantly</h1>
+                <p class="hero-sub">Enter your name, UTME score, and your 5 core O'Level subjects. We calculate your
+                    aggregate using all three formulas FUHSI has used in recent admission cycles, then compare it
+                    directly against real, published merit scores for every programme.</p>
+                <div class="hero-pills">
+                    <span class="pill">🧮 3 Official Aggregate Formulas</span>
+                    <span class="pill">🎯 Real Merit Score Comparison</span>
+                    <span class="pill">📋 13 FUHSI Programmes</span>
+                    <span class="pill">🔄 Smart Alternative Finder</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STEPPER BAR -->
+    <div class="stepper-wrap">
+        <div class="container">
+            <div class="stepper" id="stepper">
+                <div class="step active" id="step1">
+                    <div class="step-num">1</div>
+                    <span class="step-label">Your Details</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" id="step2">
+                    <div class="step-num">2</div>
+                    <span class="step-label">Analysis</span>
+                </div>
+                <div class="step-connector" id="conn2"></div>
+                <div class="step" id="step3">
+                    <div class="step-num">3</div>
+                    <span class="step-label">Your Results</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main-content">
+        <div class="container">
+
+            <!-- ══ FORM SECTION ══ -->
+            <div id="form-section">
+                <div class="form-card">
+                    <div class="form-card-header">
+                        <div class="form-header-icon">📝</div>
+                        <div>
+                            <h2>Enter Your Academic Profile</h2>
+                            <p>All fields are required — this matches exactly what FUHSI's screening uses</p>
+                        </div>
+                    </div>
+                    <div class="form-body">
+                        <div class="form-grid">
+
+                            <!-- Full Name -->
+                            <div class="form-group full" id="fg-name">
+                                <label class="form-label" for="fullName">
+                                    Full Name <span class="req">*</span>
+                                </label>
+                                <input type="text" id="fullName" class="form-input"
+                                    placeholder="e.g. Adeola Grace Olawale" autocomplete="name" />
+                                <div class="form-error" id="err-name">Please enter your full name</div>
+                            </div>
+
+                            <!-- JAMB Score -->
+                            <div class="form-group" id="fg-jamb">
+                                <label class="form-label" for="jambScore">
+                                    JAMB / UTME Score <span class="req">*</span>
+                                    <span class="tooltip"
+                                        title="Your raw UTME score as printed on your JAMB result slip, out of 400">?</span>
+                                </label>
+                                <div class="score-input-wrap">
+                                    <input type="number" id="jambScore" class="form-input" placeholder="e.g. 230"
+                                        min="0" max="400" autocomplete="off" />
+                                    <div class="score-display" id="jambDisplay">—</div>
+                                </div>
+                                <input type="range" class="score-range" id="jambRange" min="0" max="400" value="0"
+                                    step="1" />
+                                <div class="score-ticks">
+                                    <span>0</span><span>100</span><span>200</span><span>300</span><span>400</span></div>
+                                <div class="form-hint">This score is used directly in FUHSI's official aggregate formula
+                                </div>
+                                <div class="form-error" id="err-jamb">Please enter a valid UTME score (1–400)</div>
+                            </div>
+
+                            <!-- Course of Choice -->
+                            <div class="form-group" id="fg-course">
+                                <label class="form-label" for="courseChoice">
+                                    Course of Choice <span class="req">*</span>
+                                </label>
+                                <div class="select-wrap">
+                                    <select id="courseChoice" class="form-select">
+                                        <option value="">— Select a FUHSI Course —</option>
+                                        <optgroup label="🩺 Clinical Medicine">
+                                            <option value="medicine">Medicine and Surgery — Merit 78.7</option>
+                                            <option value="nursing">Nursing Science — Merit 73.1</option>
+                                        </optgroup>
+                                        <optgroup label="🔬 Biomedical Sciences">
+                                            <option value="mls">Medical Laboratory Science — Merit 66.5</option>
+                                            <option value="pharmacology">Pharmacology — Merit 58.6</option>
+                                            <option value="biochemistry">Biochemistry — Merit 50.1</option>
+                                            <option value="microbiology">Microbiology — Merit 50.0</option>
+                                        </optgroup>
+                                        <optgroup label="💻 Health Technology & Informatics">
+                                            <option value="audiology">Audiology — Merit 60.1</option>
+                                            <option value="it_health">IT & Health Informatics — Merit 53.2</option>
+                                        </optgroup>
+                                        <optgroup label="🌍 Public & Allied Health">
+                                            <option value="physiotherapy">Doctor of Physiotherapy — Merit 69.6</option>
+                                            <option value="prosthetics">Prosthetics & Orthotics — Merit 58.7</option>
+                                            <option value="nutrition">Nutrition and Dietetics — Merit 57.5</option>
+                                            <option value="environmental">Environmental Health Science — Merit 54.5
+                                            </option>
+                                            <option value="biotech">Biotechnology & Molecular Biology — Merit 50.1
+                                            </option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div class="form-error" id="err-course">Please select a course</div>
+                            </div>
+                            <!-- select states section updated -->
+                            <!-- State of Origin -->
+                            <div class="form-group" id="fg-state">
+                                <label class="form-label" for="stateOrigin">
+                                    State of Origin <span class="req">*</span>
+                                    <span class="tooltip" title="Used for ELDS & catchment advantage check">?</span>
+                                </label>
+                                <div class="select-wrap">
+                                    <select id="stateOrigin" class="form-select">
+                                        <option value="">— Select State —</option>
+                                        <option value="osun">Osun State (Host State)</option>
+                                        <option value="oyo">Oyo State</option>
+                                        <option value="ekiti">Ekiti State</option>
+                                        <option value="kwara">Kwara State</option>
+                                        <option value="ondo">Ondo State</option>
+                                        <option value="lagos">Lagos State</option>
+                                        <option value="ogun">Ogun State</option>
+                                        <option value="abia">Abia State</option>
+                                        <option value="anambra">Anambra State</option>
+                                        <option value="bayelsa">Bayelsa State</option>
+                                        <option value="benue">Benue State</option>
+                                        <option value="crossriver">Cross River State</option>
+                                        <option value="delta">Delta State</option>
+                                        <option value="ebonyi">Ebonyi State</option>
+                                        <option value="edo">Edo State</option>
+                                        <option value="enugu">Enugu State</option>
+                                        <option value="imo">Imo State</option>
+                                        <option value="rivers">Rivers State</option>
+                                        <option value="adamawa">Adamawa State</option>
+                                        <option value="bauchi">Bauchi State</option>
+                                        <option value="borno">Borno State</option>
+                                        <option value="gombe">Gombe State</option>
+                                        <option value="plateau">Plateau State</option>
+                                        <option value="taraba">Taraba State</option>
+                                        <option value="yobe">Yobe State</option>
+                                        <option value="abuja">FCT Abuja</option>
+                                        <option value="kano">Kano State</option>
+                                        <option value="katsina">Katsina State</option>
+                                        <option value="kebbi">Kebbi State</option>
+                                        <option value="kogi">Kogi State</option>
+                                        <option value="nasarawa">Nasarawa State</option>
+                                        <option value="niger">Niger State</option>
+                                        <option value="sokoto">Sokoto State</option>
+                                        <option value="zamfara">Zamfara State</option>
+                                        <option value="akwaibom">Akwa Ibom State</option>
+                                        <option value="jigawa">Jigawa State</option>
+                                        <option value="kaduna">Kaduna State</option>
+                                    </select>
+                                </div>
+                                <div class="form-error" id="err-state">Please select your state of origin</div>
+                            </div>
+
+                            <!-- O'Level Grades — 5 mandatory core subjects -->
+                            <div class="form-group full olevel-section" id="fg-olevel">
+                                <div class="olevel-label-row">
+                                    <span class="olt">O'Level Grades — 5 Core Subjects <span class="req">*</span></span>
+                                    <span class="olevel-note">Mandatory for FUHSI screening · used directly in the
+                                        aggregate formula</span>
+                                </div>
+                                <div class="olevel-grid">
+                                    <div class="olevel-item">
+                                        <label for="ol-english">English Language</label>
+                                        <div class="select-wrap">
+                                            <select id="ol-english" class="form-select">
+                                                <option value="">Grade</option>
+                                                <option value="A1">A1</option>
+                                                <option value="B2">B2</option>
+                                                <option value="B3">B3</option>
+                                                <option value="C4">C4</option>
+                                                <option value="C5">C5</option>
+                                                <option value="C6">C6</option>
+                                                <option value="D7">D7</option>
+                                                <option value="E8">E8</option>
+                                                <option value="F9">F9</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="olevel-item">
+                                        <label for="ol-maths">Mathematics</label>
+                                        <div class="select-wrap">
+                                            <select id="ol-maths" class="form-select">
+                                                <option value="">Grade</option>
+                                                <option value="A1">A1</option>
+                                                <option value="B2">B2</option>
+                                                <option value="B3">B3</option>
+                                                <option value="C4">C4</option>
+                                                <option value="C5">C5</option>
+                                                <option value="C6">C6</option>
+                                                <option value="D7">D7</option>
+                                                <option value="E8">E8</option>
+                                                <option value="F9">F9</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="olevel-item">
+                                        <label for="ol-biology">Biology</label>
+                                        <div class="select-wrap">
+                                            <select id="ol-biology" class="form-select">
+                                                <option value="">Grade</option>
+                                                <option value="A1">A1</option>
+                                                <option value="B2">B2</option>
+                                                <option value="B3">B3</option>
+                                                <option value="C4">C4</option>
+                                                <option value="C5">C5</option>
+                                                <option value="C6">C6</option>
+                                                <option value="D7">D7</option>
+                                                <option value="E8">E8</option>
+                                                <option value="F9">F9</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="olevel-item">
+                                        <label for="ol-chemistry">Chemistry</label>
+                                        <div class="select-wrap">
+                                            <select id="ol-chemistry" class="form-select">
+                                                <option value="">Grade</option>
+                                                <option value="A1">A1</option>
+                                                <option value="B2">B2</option>
+                                                <option value="B3">B3</option>
+                                                <option value="C4">C4</option>
+                                                <option value="C5">C5</option>
+                                                <option value="C6">C6</option>
+                                                <option value="D7">D7</option>
+                                                <option value="E8">E8</option>
+                                                <option value="F9">F9</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="olevel-item">
+                                        <label for="ol-physics">Physics</label>
+                                        <div class="select-wrap">
+                                            <select id="ol-physics" class="form-select">
+                                                <option value="">Grade</option>
+                                                <option value="A1">A1</option>
+                                                <option value="B2">B2</option>
+                                                <option value="B3">B3</option>
+                                                <option value="C4">C4</option>
+                                                <option value="C5">C5</option>
+                                                <option value="C6">C6</option>
+                                                <option value="D7">D7</option>
+                                                <option value="E8">E8</option>
+                                                <option value="F9">F9</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-error" id="err-olevel">Please select grades for all 5 core subjects
+                                </div>
+                            </div>
+
+                        </div><!-- /form-grid -->
+                    </div><!-- /form-body -->
+
+                    <div class="form-footer">
+                        <button class="btn-analyze" id="btnAnalyze" onclick="startAnalysis()">
+                            <span>🧠</span> Analyze My Eligibility <span class="arrow">→</span>
+                        </button>
+                        <p class="form-note">🔒 Your data is processed locally and never stored</p>
+                    </div>
+                </div><!-- /form-card -->
+            </div><!-- /form-section -->
+
+            <!-- ══ LOADING SECTION ══ -->
+            <div id="loading-section" class="hidden">
+                <div class="loading-orb"></div>
+                <div class="loading-title">Analyzing Your Admission Profile…</div>
+                <p style="font-size:.85rem;color:var(--gray400);margin-top:6px">This takes just a moment</p>
+                <div class="loading-steps-list" id="loadingSteps">
+                    <div class="l-step" id="ls1">
+                        <span class="l-icon">📐</span><span>Calculating your UTME contribution…</span><span
+                            class="l-check">✓</span>
+                    </div>
+                    <div class="l-step" id="ls2">
+                        <span class="l-icon">🧮</span><span>Applying FUHSI's 3 documented aggregate
+                            formulas…</span><span class="l-check">✓</span>
+                    </div>
+                    <div class="l-step" id="ls3">
+                        <span class="l-icon">🎯</span><span>Comparing against official merit scores…</span><span
+                            class="l-check">✓</span>
+                    </div>
+                    <div class="l-step" id="ls4">
+                        <span class="l-icon">🔄</span><span>Generating course recommendations…</span><span
+                            class="l-check">✓</span>
+                    </div>
+                </div>
+                <div class="loading-bar-wrap">
+                    <div class="loading-bar">
+                        <div class="loading-fill" id="loadFill"></div>
+                    </div>
+                    <div class="loading-pct" id="loadPct">0%</div>
+                </div>
+            </div>
+
+            <!-- ══ RESULTS SECTION ══ -->
+            <div id="results-section" class="hidden">
+
+                <div class="results-header">
+                    <div class="results-title-group">
+                        <div class="rtitle">Your Admission Intelligence Report</div>
+                        <div class="rsub" id="results-subtitle">Generated just now</div>
+                    </div>
+                    <div class="results-actions-top">
+                        <button class="btn-icon" onclick="recalculate()">↩ Recalculate</button>
+                        <button class="btn-icon primary" onclick="downloadReport()">⬇ Download Report</button>
+                    </div>
+                </div>
+
+                <div class="results-grid">
+
+                    <!-- A: Verdict Card -->
+                    <div class="r-card accent-green fade-in fade-in-1" id="card-prob">
+                        <div class="r-card-header">
+                            <div class="r-card-icon green">🎯</div>
+                            <div>
+                                <div class="r-card-title">Eligibility Verdict</div>
+                                <div class="r-card-sub">Average aggregate vs. official merit score</div>
+                            </div>
+                        </div>
+                        <div class="prob-big">
+                            <div class="prob-ring-wrap">
+                                <svg class="prob-ring-svg" width="138" height="138" viewBox="0 0 138 138">
+                                    <circle class="prob-ring-bg" cx="69" cy="69" r="55" />
+                                    <circle class="prob-ring-fill" id="probRing" cx="69" cy="69" r="55"
+                                        stroke-dasharray="345.6" stroke-dashoffset="345.6" />
+                                </svg>
+                                <div class="prob-center">
+                                    <div class="prob-pct" id="probPct">—</div>
+                                    <div class="prob-label" id="probLbl">Avg. Aggregate</div>
+                                    <div class="prob-diff" id="probDiff"></div>
+                                </div>
+                            </div>
+                            <div class="prob-verdict" id="probVerdict"></div>
+                            <div class="prob-message" id="probMessage"></div>
+                            <div class="prob-meta" id="probMeta"></div>
+                        </div>
+                    </div>
+
+                    <!-- B: Multi-Formula Aggregate Comparison -->
+                    <div class="r-card accent-gold fade-in fade-in-2" id="card-agg">
+                        <div class="r-card-header">
+                            <div class="r-card-icon gold">📐</div>
+                            <div>
+                                <div class="r-card-title">Aggregate Comparison</div>
+                                <div class="r-card-sub">Calculated 3 ways, for full accuracy</div>
+                            </div>
+                        </div>
+                        <div class="method-legend" id="methodLegend"></div>
+                        <div class="method-rows" id="methodRows"></div>
+                    </div>
+
+                    <!-- C: Course Status -->
+                    <div class="r-card accent-green fade-in fade-in-3" id="card-course">
+                        <div class="r-card-header">
+                            <div class="r-card-icon green">🎓</div>
+                            <div>
+                                <div class="r-card-title">Course Eligibility Status</div>
+                                <div class="r-card-sub">Your selected course analysis</div>
+                            </div>
+                        </div>
+                        <div class="course-status-main" id="csMain"></div>
+                        <div class="cutoff-row"><span>Official Merit Score</span><strong id="csCutoff">—</strong></div>
+                        <div class="cutoff-row"><span>Your Average Aggregate</span><strong id="csAvg">—</strong></div>
+                        <div class="cutoff-row"><span>Formulas Met <span class="tooltip"
+                                    title="FUHSI has used 3 different aggregate formulas in recent years. This shows how many of them currently place you above the merit score for this course.">?</span></span><strong
+                                id="csMethodsMet">—</strong></div>
+                    </div>
+
+                    <!-- D: Profile Recap -->
+                    <div class="r-card accent-blue fade-in fade-in-4" id="card-recap">
+                        <div class="r-card-header">
+                            <div class="r-card-icon blue">🧾</div>
+                            <div>
+                                <div class="r-card-title">Your Submitted Profile</div>
+                                <div class="r-card-sub">Double-check before you act on this report</div>
+                            </div>
+                        </div>
+                        <div id="recapBody"></div>
+                    </div>
+
+                    <!-- E: Alternatives -->
+                    <div class="r-card full accent-green fade-in fade-in-5" id="card-alts">
+                        <div class="r-card-header">
+                            <div class="r-card-icon green">🔄</div>
+                            <div>
+                                <div class="r-card-title">Alternative Course Recommendations</div>
+                                <div class="r-card-sub">Other FUHSI programmes that fit your current profile</div>
+                            </div>
+                        </div>
+                        <p class="alt-intro" id="altIntro"></p>
+                        <div class="alt-card-list" id="altList"></div>
+                    </div>
+
+                    <!-- F: Methodology -->
+                    <div class="r-card full accent-blue fade-in fade-in-5" id="card-method">
+                        <div class="r-card-header">
+                            <div class="r-card-icon blue">📚</div>
+                            <div>
+                                <div class="r-card-title">How FUHSI Calculates Your Aggregate</div>
+                                <div class="r-card-sub">The 3 documented formulas behind this report</div>
+                            </div>
+                        </div>
+                        <div class="formula-grid">
+                            <div class="formula-card">
+                                <div class="formula-head">
+                                    <span class="formula-title">Method 1 · Legacy 80:20</span>
+                                </div>
+                                <div class="formula-weight">80% UTME + 20% O'Level</div>
+                                <div class="formula-body">O'Level scale: A1=4 · B2=3.5 · B3=3 · C4=2 · C5=2.5 · C6=1,
+                                    out of 20 points across your 5 core subjects. Observed roughly three admission
+                                    cycles ago.</div>
+                            </div>
+                            <div class="formula-card recent">
+                                <div class="formula-head">
+                                    <span class="formula-title">Method 2 · Current 80:20</span>
+                                    <span class="formula-badge recent">Most Recent</span>
+                                </div>
+                                <div class="formula-weight">80% UTME + 20% O'Level</div>
+                                <div class="formula-body">Updated O'Level scale: A1=6 · B2=5 · B3=4 · C4=3 · C5=2 ·
+                                    C6=1, out of 30 points. This is the formula FUHSI used in the last admission cycle.
+                                </div>
+                            </div>
+                            <div class="formula-card">
+                                <div class="formula-head">
+                                    <span class="formula-title">Method 3 · 75:25 Variant</span>
+                                    <span class="formula-badge unconfirmed">Unconfirmed</span>
+                                </div>
+                                <div class="formula-weight">75% UTME + 25% O'Level</div>
+                                <div class="formula-body">Same O'Level scale as Method 1, but shifts more weight onto
+                                    O'Level performance. Observed about two admission cycles ago, never officially
+                                    confirmed.</div>
+                            </div>
+                        </div>
+                        <p class="formula-note">FUHSI has not published one permanent aggregate formula — the weighting
+                            and O'Level scale have changed across recent admission cycles. That's why this report
+                            calculates your aggregate all three documented ways, instead of assuming a single method,
+                            and shows you the full realistic range.</p>
+
+                        <details class="merit-accordion">
+                            <summary>📋 View Merit Scores for All 13 FUHSI Programmes <span class="acc-arrow">▾</span>
+                            </summary>
+                            <div class="merit-table-body" id="meritTableBody"></div>
+                        </details>
+                    </div>
+
+                </div><!-- /results-grid -->
+
+                <!-- Disclaimer -->
+                <div class="disclaimer-bar">
+                    <span class="di-icon">⚠️</span>
+                    <span><strong>Disclaimer:</strong> This report calculates your aggregate using three documented
+                        historical FUHSI formulas and compares it to recently observed merit scores. It does not
+                        guarantee admission — final outcomes depend on FUHSI's official screening process and the
+                        formula adopted for the current admission cycle. Always verify with the official FUHSI
+                        Admissions Office before making decisions.</span>
+                </div>
+
+                <!-- Bottom Actions -->
+                <div class="bottom-actions">
+                    <button class="btn-lg green" onclick="downloadReport()">⬇ Download Full Report</button>
+                    <button class="btn-lg outline" onclick="window.location.href='index.html#courses'">📚 Explore All
+                        Courses</button>
+                    <button class="btn-lg ghost" onclick="recalculate()">↩ Recalculate</button>
+                </div>
+
+            </div><!-- /results-section -->
+
+        </div><!-- /container -->
+    </div><!-- /main-content -->
+
+    <!-- ══════════════════════════════════════════
+   JAVASCRIPT ENGINE
+══════════════════════════════════════════ -->
+    <script>
+        /* ── COURSE DATABASE — merit scores are FUHSI's published/observed cut-offs ── */
+        const COURSES = {
+            medicine: { name: 'Medicine and Surgery', faculty: 'Clinical Medicine', icon: '⚕️', merit: 78.7 },
+            nursing: { name: 'Nursing Science', faculty: 'Clinical Medicine', icon: '🩺', merit: 73.1 },
+            mls: { name: 'Medical Laboratory Science', faculty: 'Biomedical Sciences', icon: '🔬', merit: 66.5 },
+            pharmacology: { name: 'Pharmacology', faculty: 'Biomedical Sciences', icon: '💊', merit: 58.6 },
+            biochemistry: { name: 'Biochemistry', faculty: 'Biomedical Sciences', icon: '🧬', merit: 50.1 },
+            microbiology: { name: 'Microbiology', faculty: 'Biomedical Sciences', icon: '🦠', merit: 50.0 },
+            audiology: { name: 'Audiology', faculty: 'Health Technology & Informatics', icon: '👂', merit: 60.1 },
+            it_health: { name: 'Information Technology & Health Informatics', faculty: 'Health Technology & Informatics', icon: '💻', merit: 53.2 },
+            physiotherapy: { name: 'Doctor of Physiotherapy', faculty: 'Public & Allied Health', icon: '🏃', merit: 69.6 },
+            prosthetics: { name: 'Prosthetics & Orthotics', faculty: 'Public & Allied Health', icon: '🦾', merit: 58.7 },
+            nutrition: { name: 'Nutrition and Dietetics', faculty: 'Public & Allied Health', icon: '🥗', merit: 57.5 },
+            environmental: { name: 'Environmental Health Science', faculty: 'Public & Allied Health', icon: '♻️', merit: 54.5 },
+            biotech: { name: 'Biotechnology & Molecular Biology', faculty: 'Public & Allied Health', icon: '🧫', merit: 50.1 },
+        };
+
+        /* ── O'LEVEL GRADE SCALES (verified against FUHSI worked example) ── */
+        const SCALE_A = { A1: 4, B2: 3.5, B3: 3, C4: 2, C5: 2.5, C6: 1, D7: 0, E8: 0, F9: 0 }; // Methods 1 & 3, max 20 (5 subjects)
+        const SCALE_B = { A1: 6, B2: 5, B3: 4, C4: 3, C5: 2, C6: 1, D7: 0, E8: 0, F9: 0 }; // Method 2, max 30 (5 subjects)
+        const MAX_A = 20, MAX_B = 30;
+
+        const round2 = n => Math.round(n * 100) / 100;
+        const fmt = n => n.toFixed(2);
+
+        /* ── JAMB ↔ RANGE SYNC ── */
+        const jambInput = document.getElementById('jambScore');
+        const jambRange = document.getElementById('jambRange');
+        const jambDisplay = document.getElementById('jambDisplay');
+        function syncJamb(val) {
+            val = Math.min(400, Math.max(0, parseInt(val) || 0));
+            jambInput.value = val || '';
+            jambRange.value = val;
+            jambDisplay.textContent = val ? val : '—';
+            const pct = (val / 400) * 100;
+            jambRange.style.background = `linear-gradient(90deg, var(--g400) ${pct}%, var(--gray200) ${pct}%)`;
+        }
+        jambInput.addEventListener('input', () => syncJamb(jambInput.value));
+        jambRange.addEventListener('input', () => syncJamb(jambRange.value));
+        syncJamb(0);
+
+        /* ── VALIDATION ── */
+        function validateForm() {
+            let valid = true;
+            const clearErr = id => document.getElementById(id).classList.remove('has-error');
+            const showErr = id => { document.getElementById(id).classList.add('has-error'); valid = false; };
+
+            clearErr('fg-name');
+            if (document.getElementById('fullName').value.trim().length < 2) showErr('fg-name');
+
+            const jamb = parseInt(jambInput.value);
+            clearErr('fg-jamb');
+            if (!jamb || jamb < 1 || jamb > 400) showErr('fg-jamb');
+
+            clearErr('fg-course');
+            if (!document.getElementById('courseChoice').value) showErr('fg-course');
+
+            clearErr('fg-olevel');
+            const olIds = ['ol-english', 'ol-maths', 'ol-biology', 'ol-chemistry', 'ol-physics'];
+            const filled = olIds.every(id => document.getElementById(id).value !== '');
+            if (!filled) showErr('fg-olevel');
+
+            return valid;
+        }
+
+        /* ── AGGREGATE ENGINE — verified against FUHSI's worked example (UTME 233, B2/B3/B2/C4/B3 → 61.60 / 60.60 / 62.44) ── */
+        function computeAggregates(jamb, grades) {
+            const sumA = grades.reduce((s, g) => s + SCALE_A[g], 0);
+            const sumB = grades.reduce((s, g) => s + SCALE_B[g], 0);
+
+            const utmeM1 = round2((jamb / 400) * 80);
+            const olM1 = round2((sumA / MAX_A) * 20);
+            const utmeM2 = round2((jamb / 400) * 80);
+            const olM2 = round2((sumB / MAX_B) * 20);
+            const utmeM3 = round2((jamb / 400) * 75);
+            const olM3 = round2((sumA / MAX_A) * 25);
+
+            const m1 = round2(utmeM1 + olM1);
+            const m2 = round2(utmeM2 + olM2);
+            const m3 = round2(utmeM3 + olM3);
+            const avg = round2((m1 + m2 + m3) / 3);
+
+            return { m1, m2, m3, avg, utmeM1, olM1, utmeM2, olM2, utmeM3, olM3 };
+        }
+
+        /* ── EVALUATE A SINGLE COURSE ── */
+        function evaluateCourse(courseKey, agg) {
+            const merit = COURSES[courseKey].merit;
+            const flags = [agg.m1 >= merit, agg.m2 >= merit, agg.m3 >= merit];
+            const methodsMet = flags.filter(Boolean).length;
+            const tier = methodsMet === 3 ? 'strong' : methodsMet === 2 ? 'likely' : methodsMet === 1 ? 'borderline' : 'below';
+            const diffAvg = round2(agg.avg - merit);
+            return { merit, flags, methodsMet, tier, diffAvg };
+        }
+
+        /* ── ALTERNATIVE COURSE FINDER ── */
+        function getAlternatives(agg, excludeKey) {
+            const all = Object.entries(COURSES)
+                .filter(([key]) => key !== excludeKey)
+                .map(([key, c]) => {
+                    const ev = evaluateCourse(key, agg);
+                    return { key, ...c, ...ev };
+                });
+
+            let tier2 = all.filter(c => c.methodsMet >= 2).sort((a, b) => b.methodsMet - a.methodsMet || b.diffAvg - a.diffAvg);
+            if (tier2.length) return { list: tier2.slice(0, 4), mode: 'recommended' };
+
+            let tier1 = all.filter(c => c.methodsMet === 1).sort((a, b) => b.diffAvg - a.diffAvg);
+            if (tier1.length) return { list: tier1.slice(0, 4), mode: 'borderline' };
+
+            let closest = all.sort((a, b) => b.diffAvg - a.diffAvg);
+            return { list: closest.slice(0, 3), mode: 'closest' };
+        }
+
+        /* ── UI HELPERS ── */
+        function setSection(show) {
+            document.getElementById('form-section').classList.toggle('hidden', show !== 'form');
+            document.getElementById('loading-section').classList.toggle('hidden', show !== 'loading');
+            document.getElementById('results-section').classList.toggle('hidden', show !== 'results');
+        }
+        function setStep(n) {
+            [1, 2, 3].forEach(i => {
+                const el = document.getElementById(`step${i}`);
+                el.classList.remove('active', 'done');
+                if (i < n) el.classList.add('done');
+                else if (i === n) el.classList.add('active');
+            });
+        }
+
+        /* ── LOADING ANIMATION ── */
+        function runLoading(cb) {
+            setSection('loading');
+            setStep(2);
+            const fill = document.getElementById('loadFill');
+            const pct = document.getElementById('loadPct');
+            const steps = [
+                { id: 'ls1', pct: 25, delay: 0 },
+                { id: 'ls2', pct: 55, delay: 650 },
+                { id: 'ls3', pct: 80, delay: 1300 },
+                { id: 'ls4', pct: 100, delay: 1950 },
+            ];
+            steps.forEach(({ id, pct: p, delay }) => {
+                setTimeout(() => {
+                    const el = document.getElementById(id);
+                    el.classList.add('active');
+                    fill.style.width = p + '%';
+                    pct.textContent = p + '%';
+                    setTimeout(() => el.classList.replace('active', 'done'), 350);
+                }, delay);
+            });
+            setTimeout(cb, 2700);
+        }
+
+        /* ── RENDER RESULTS ── */
+        function renderResults(data) {
+            const { name, jamb, course, grades, agg, ev, alts } = data;
+            const c = COURSES[course];
+
+            document.getElementById('results-subtitle').textContent =
+                `Generated for ${name} · Compared against FUHSI's 3 documented aggregate formulas`;
+
+            /* A — Verdict ring */
+            const circumference = 345.6;
+            const ringPct = Math.max(0, Math.min(100, (agg.avg / ev.merit) * 100));
+            const offset = circumference - (ringPct / 100) * circumference;
+            const ring = document.getElementById('probRing');
+            const tierColor = (ev.tier === 'strong' || ev.tier === 'likely') ? 'var(--g400)' : ev.tier === 'borderline' ? 'var(--amber500)' : 'var(--red500)';
+            ring.style.stroke = tierColor;
+            setTimeout(() => ring.style.strokeDashoffset = offset, 150);
+
+            document.getElementById('probPct').textContent = fmt(agg.avg);
+            document.getElementById('probPct').style.color = (ev.tier === 'strong' || ev.tier === 'likely') ? 'var(--g700)' : ev.tier === 'borderline' ? 'var(--amber500)' : 'var(--red500)';
+            document.getElementById('probLbl').textContent = 'Avg. Aggregate (3 formulas)';
+
+            const diffEl = document.getElementById('probDiff');
+            if (ev.diffAvg >= 0) { diffEl.textContent = `+${fmt(ev.diffAvg)} above merit`; diffEl.style.color = 'var(--g600)'; }
+            else { diffEl.textContent = `${fmt(ev.diffAvg)} below merit`; diffEl.style.color = 'var(--red500)'; }
+
+            const verdictText = {
+                strong: '✅ Strong — Eligible',
+                likely: '✅ Likely Eligible',
+                borderline: '⚡ Borderline',
+                below: '⚠️ Below Merit',
+            }[ev.tier];
+            const v = document.getElementById('probVerdict');
+            v.textContent = verdictText;
+            v.className = `prob-verdict verdict-${ev.tier}`;
+
+            const messages = {
+                strong: `🎉 Congratulations, ${name}! Your aggregate clears the official FUHSI merit score for ${c.name} under all three formulas FUHSI has used in recent admission cycles. You have a strong, well-rounded case for this programme.`,
+                likely: `🎉 Congratulations, ${name}! Your aggregate meets the FUHSI merit score for ${c.name} under two of the three known formulas. Your standing is solid — the exact formula adopted this cycle could shift the final figure slightly, so it's worth performing well at screening too.`,
+                borderline: `⚡ ${name}, your aggregate only clears the merit score for ${c.name} under one of the three known FUHSI formulas. This is a genuine borderline position — your real outcome will depend heavily on which formula FUHSI applies this admission cycle.`,
+                below: `${name}, based on your input, your aggregate currently falls below the FUHSI merit score for ${c.name} under all three known formulas. This course is unlikely to be attainable this cycle — review the alternative courses below, where your profile is considerably stronger.`,
+            };
+            document.getElementById('probMessage').textContent = messages[ev.tier];
+            document.getElementById('probMeta').textContent = `Merit score for ${c.name}: ${fmt(ev.merit)} pts · Met in ${ev.methodsMet} of 3 official formulas`;
+
+            /* B — Method comparison rows */
+            document.getElementById('methodLegend').textContent =
+                `Compared against the published merit score for ${c.name}: ${fmt(ev.merit)} pts.`;
+
+            const methodMeta = [
+                { key: 'm1', name: 'Method 1', tag: 'Legacy 80:20 · O\'Level /20', utme: agg.utmeM1, ol: agg.olM1, score: agg.m1 },
+                { key: 'm2', name: 'Method 2', tag: 'Current 80:20 · O\'Level /30 (most recent)', utme: agg.utmeM2, ol: agg.olM2, score: agg.m2 },
+                { key: 'm3', name: 'Method 3', tag: '75:25 variant · O\'Level /20 (unconfirmed)', utme: agg.utmeM3, ol: agg.olM3, score: agg.m3 },
+            ];
+            document.getElementById('methodRows').innerHTML = methodMeta.map((m, i) => {
+                const met = m.score >= ev.merit;
+                return `
+        <div class="method-row ${met ? 'met' : 'unmet'}">
+          <div class="method-row-head">
+            <div>
+              <div class="method-name">${m.name}</div>
+              <div class="method-tag">${m.tag}</div>
+            </div>
+            <div class="method-score-wrap">
+              <div class="method-score">${fmt(m.score)}</div>
+              <span class="method-chip ${met ? 'chip-met' : 'chip-unmet'}">${met ? 'Meets Merit' : 'Below Merit'}</span>
+            </div>
+          </div>
+          <div class="method-detail">UTME contribution: ${fmt(m.utme)} pts &nbsp;+&nbsp; O'Level contribution: ${fmt(m.ol)} pts</div>
+        </div>`;
+            }).join('');
+
+            /* C — Course status */
+            const badgeClass = (ev.tier === 'strong' || ev.tier === 'likely') ? 'eligible' : ev.tier === 'borderline' ? 'competitive' : 'low';
+            const badgeText = (ev.tier === 'strong' || ev.tier === 'likely') ? '✅ Eligible' : ev.tier === 'borderline' ? '⚡ Borderline' : '⚠️ Below Merit';
+            document.getElementById('csMain').innerHTML = `
+        <div class="cs-course-icon">${c.icon}</div>
+        <div>
+          <div class="cs-course-name">${c.name}</div>
+          <div class="cs-course-faculty">${c.faculty}</div>
+          <span class="cs-badge ${badgeClass}">${badgeText}</span>
+        </div>`;
+            document.getElementById('csCutoff').textContent = `${fmt(ev.merit)} pts`;
+            document.getElementById('csAvg').textContent = `${fmt(agg.avg)} pts`;
+            document.getElementById('csMethodsMet').textContent = `${ev.methodsMet} of 3`;
+
+            /* D — Profile recap */
+            const gradeLabels = { english: 'English', maths: 'Maths', biology: 'Biology', chemistry: 'Chemistry', physics: 'Physics' };
+            const gradeChips = Object.entries(grades).map(([k, g]) => `<span class="recap-grade-chip">${gradeLabels[k]}: ${g}</span>`).join('');
+            document.getElementById('recapBody').innerHTML = `
+        <div class="recap-row"><span>Full Name</span><strong>${name}</strong></div>
+        <div class="recap-row"><span>UTME / JAMB Score</span><strong>${jamb} / 400</strong></div>
+        <div class="recap-row"><span>Course Selected</span><strong>${c.name}</strong></div>
+        <div class="recap-row"><span>O'Level Grades</span><div class="recap-grades">${gradeChips}</div></div>`;
+
+            /* E — Alternatives */
+            const introText = {
+                recommended: (ev.tier === 'strong' || ev.tier === 'likely')
+                    ? `You're in good shape for ${c.name}! Here are other strong options based on your profile, in case you'd like a backup plan.`
+                    : `Based on your input, here are FUHSI courses where your current aggregate comfortably clears the merit score under at least two of the three formulas.`,
+                borderline: `None of FUHSI's programmes are comfortably clear of your profile yet, but these courses currently meet the merit score under one of the three known formulas — worth keeping as a backup.`,
+                closest: `Your current scores don't yet clear the merit score for any FUHSI programme under any of the three formulas. These are your closest matches — improving your UTME score or O'Level grades would move you within reach.`,
+            };
+            document.getElementById('altIntro').textContent = introText[alts.mode];
+
+            document.getElementById('altList').innerHTML = alts.list.map(a => {
+                const cls = alts.mode === 'recommended' ? (a.methodsMet === 3 ? 'alt-recommended' : 'alt-recommended') : alts.mode === 'borderline' ? 'alt-borderline' : '';
+                const probCls = a.methodsMet >= 2 ? 'alt-prob-high' : a.methodsMet === 1 ? 'alt-prob-mid' : 'alt-prob-low';
+                const sign = a.diffAvg >= 0 ? '+' : '';
+                return `
+        <div class="alt-item ${cls}">
+          <span class="alt-item-icon">${a.icon}</span>
+          <div class="alt-item-main">
+            <div class="alt-item-name">${a.name}</div>
+            <div class="alt-item-reason">${a.faculty} · Merit score: ${fmt(a.merit)} pts</div>
+          </div>
+          <span class="alt-item-prob ${probCls}">${a.methodsMet}/3 met · ${sign}${fmt(a.diffAvg)}</span>
+        </div>`;
+            }).join('');
+
+            /* F — Merit table, sorted descending, candidate's course highlighted */
+            const sorted = Object.entries(COURSES).sort((a, b) => b[1].merit - a[1].merit);
+            document.getElementById('meritTableBody').innerHTML = sorted.map(([key, cc]) => `
+        <div class="merit-row ${key === course ? 'self' : ''}">
+          <div class="merit-row-left">
+            <span class="merit-row-icon">${cc.icon}</span>
+            <span class="merit-row-name">${cc.name}</span>
+            ${key === course ? '<span class="merit-row-tag">Your Course</span>' : ''}
+          </div>
+          <span class="merit-row-score">${fmt(cc.merit)} pts</span>
+        </div>`).join('');
+        }
+
+        /* ── MAIN START ── */
+        function startAnalysis() {
+            if (!validateForm()) {
+                document.querySelector('.form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                return;
+            }
+
+            const name = document.getElementById('fullName').value.trim();
+            const jamb = parseInt(jambInput.value);
+            const course = document.getElementById('courseChoice').value;
+            const grades = {
+                english: document.getElementById('ol-english').value,
+                maths: document.getElementById('ol-maths').value,
+                biology: document.getElementById('ol-biology').value,
+                chemistry: document.getElementById('ol-chemistry').value,
+                physics: document.getElementById('ol-physics').value,
+            };
+
+            const agg = computeAggregates(jamb, Object.values(grades));
+            const ev = evaluateCourse(course, agg);
+            const alts = getAlternatives(agg, course);
+
+            runLoading(() => {
+                renderResults({ name, jamb, course, grades, agg, ev, alts });
+                setSection('results');
+                setStep(3);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        function recalculate() {
+            setSection('form');
+            setStep(1);
+            ['ls1', 'ls2', 'ls3', 'ls4'].forEach(id => document.getElementById(id).classList.remove('active', 'done'));
+            document.getElementById('loadFill').style.width = '0%';
+            document.getElementById('loadPct').textContent = '0%';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function downloadReport() {
+            const title = document.title;
+            document.title = 'FUHSI_MeritIQ_Eligibility_Report';
+            window.print();
+            document.title = title;
+        }
+    </script>
+
+</body>
+
+</html>
